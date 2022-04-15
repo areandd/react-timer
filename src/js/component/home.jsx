@@ -1,26 +1,49 @@
 import React from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
 //create your first component
-const Home = () => {
+function Home() {
+	const [time, setTime] = React.useState(0);
+	const [timerOn, SetTimeOn] = React.useState(false);
+
+	React.useEffect(() => {
+		let interval = null;
+
+		if (timerOn) {
+			interval = setInterval(() => {
+				setTime((previousTime) => previousTime + 10);
+			}, 10);
+		} else {
+			clearInterval(interval);
+		}
+
+		return () => clearInterval(interval);
+	}, [timerOn]);
+
 	return (
-		<div>
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div className="application">
+			<div>
+				<span>
+					{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
+				</span>
+				<span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
+				<span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+			</div>
+			<div>
+				{!timerOn && time === 0 && (
+					<button onClick={() => setTimeOn(true)}>Start</button>
+				)}
+				{timerOn && (
+					<button onClick={() => setTimeOn(false)}>Stop</button>
+				)}
+				{!timerOn && time !== 0 && (
+					<button onClick={() => setTimeOn(true)}>Resume</button>
+				)}
+				{timerOn && time > 0 && (
+					<button onClick={() => setTimeOn(0)}>Reset</button>
+				)}
+			</div>
 		</div>
 	);
-};
+}
 
 export default Home;
