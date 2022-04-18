@@ -1,12 +1,11 @@
-
-/* 
-
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
-
-*/
+.BigCounter {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    font-size: 100px;
+    line-height: auto;
+    background: black;
+    padding: 5%;
+    margin: 20%;
+    color: white;
+}
